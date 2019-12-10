@@ -1,0 +1,25 @@
+
+describe('login', function() {
+   
+    it('Visit web', function() {
+        cy.visit('https://www.pccomponentes.com/')
+        cy.wait(3000);
+        cy.url().should('include', 'pccomponentes')
+    })
+
+    it('Click on login', function() {
+        
+        cy.get(':nth-child(2) > .c-user-menu__link > .c-icon c-icon--bold c-icon--robot-head').click()
+        cy.url().should('include', 'login')
+    })
+
+    
+    it('Write user and password', function() {
+        cy.get('#userLogin_email').click().type('correo@correo.com')
+        cy.get('#userLogin_password').click().type('contrasena')
+        cy.get('#userLogin_login').click()
+        cy.get('#userLogin_email-error').should('include', 'Este campo es obligatorio')
+        cy.get('#userLogin_password-error').should('include', 'Este campo es obligatorio')
+    })
+
+})
